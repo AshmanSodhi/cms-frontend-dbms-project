@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article - WriteNest</title>
+    <link rel="stylesheet" href="sample-article.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">WriteNest</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add-post.html">Add New Post</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="article-container">
+        <article class="article-box" id="articleContent">
+            <div style="text-align: center; padding: 3rem; color: #666;">
+                <p>Loading article...</p>
+            </div>
+        </article>
+
+        <!-- Comments Section -->
+        <div class="comments-section" style="background: white; border-radius: 12px; padding: 2rem; margin-top: 2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+            <h3 style="margin-bottom: 1.5rem; color: #333;">Comments</h3>
+            
+            <!-- Add Comment Form -->
+            <div id="commentFormContainer" style="display: none; margin-bottom: 2rem;">
+                <textarea id="commentInput" placeholder="Write a comment..." style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; min-height: 100px; font-family: inherit; resize: vertical;"></textarea>
+                <button onclick="submitComment()" style="margin-top: 1rem; padding: 0.75rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">Post Comment</button>
+            </div>
+
+            <div id="loginPrompt" style="text-align: center; padding: 2rem; background: #f5f5f5; border-radius: 8px;">
+                <p style="color: #666; margin-bottom: 1rem;">Please <a href="login.html" style="color: #667eea; font-weight: 600;">login</a> to leave a comment</p>
+            </div>
+
+            <!-- Comments List -->
+            <div id="commentsList"></div>
+        </div>
+    </div>
+
+    <script src="article.js"></script>
+</body>
+</html>

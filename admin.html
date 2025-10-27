@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteNest - Admin Panel</title>
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">WriteNest Admin</div>
+            <ul class="nav-links">
+                <li><a href="index.html">View Site</a></li>
+                <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
+            <p>Manage your content and monitor your site</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-number" id="totalArticles">6</div>
+                <div class="stat-label">Total Articles</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="totalAuthors">6</div>
+                <div class="stat-label">Authors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👁️</div>
+                <div class="stat-number" id="totalViews">1,247</div>
+                <div class="stat-label">Total Views</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-number" id="publishedToday">2</div>
+                <div class="stat-label">Published Today</div>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <div class="section-header">
+                <h2>Manage Articles</h2>
+                <button class="btn" onclick="openAddModal()">+ Add New Article</button>
+            </div>
+
+            <table class="articles-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="articlesTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal" id="articleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Article</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="articleForm">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="articleTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Excerpt</label>
+                    <textarea id="articleExcerpt" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" id="articleAuthor" required>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" id="articleDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Icon (Emoji)</label>
+                    <input type="text" id="articleIcon" required>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="articleStatus">
+                        <option value="Published">Published</option>
+                        <option value="Draft">Draft</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Save Article</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

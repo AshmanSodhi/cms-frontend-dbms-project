@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteNest - Add New Post</title>
+    <link rel="stylesheet" href="post.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">WriteNest</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add-post.html">Add New Post</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="post-container">
+        <div class="post-box">
+            <div class="post-header">
+                <h1>Create New Post</h1>
+                <p>Share your thoughts with the world</p>
+            </div>
+
+            <form id="postForm" class="post-form">
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="postTitle">Post Title <span class="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="postTitle" 
+                        placeholder="Enter an engaging title"
+                        maxlength="200"
+                        required>
+                    <span class="char-count" id="titleCount">0/200</span>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="postCategory">Category <span class="required">*</span></label>
+                    <select id="postCategory" required>
+                        <option value="">Select a category</option>
+                        <option value="technology">Technology</option>
+                        <option value="design">Design</option>
+                        <option value="development">Development</option>
+                        <option value="business">Business</option>
+                        <option value="lifestyle">Lifestyle</option>
+                        <option value="tutorial">Tutorial</option>
+                        <option value="news">News</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Tags -->
+                <div class="form-group">
+                    <label for="postTags">Tags</label>
+                    <input 
+                        type="text" 
+                        id="postTags" 
+                        placeholder="javascript, web-dev, tutorial (comma separated)">
+                    <small class="field-hint">Separate tags with commas</small>
+                </div>
+
+                <!-- Excerpt -->
+                <div class="form-group">
+                    <label for="postExcerpt">Excerpt <span class="required">*</span></label>
+                    <textarea 
+                        id="postExcerpt" 
+                        rows="3"
+                        placeholder="Brief summary of your post (shown in article cards)"
+                        maxlength="300"
+                        required></textarea>
+                    <span class="char-count" id="excerptCount">0/300</span>
+                </div>
+
+                <!-- Content -->
+                <div class="form-group">
+                    <label for="postContent">Content <span class="required">*</span></label>
+                    <textarea 
+                        id="postContent" 
+                        rows="12"
+                        placeholder="Write your post content here..."
+                        required></textarea>
+                </div>
+
+                <!-- Featured Image URL -->
+                <div class="form-group">
+                    <label for="postImage">Featured Image URL</label>
+                    <input 
+                        type="url" 
+                        id="postImage" 
+                        placeholder="https://example.com/image.jpg">
+                    <small class="field-hint">Enter a valid image URL</small>
+                </div>
+
+                <!-- Image Alt Text -->
+                <div class="form-group">
+                    <label for="postImageAlt">Image Alt Text</label>
+                    <input 
+                        type="text" 
+                        id="postImageAlt" 
+                        placeholder="Describe the image for accessibility">
+                </div>
+
+                <!-- Publish Date -->
+                <div class="form-group">
+                    <label for="postDate">Publish Date <span class="required">*</span></label>
+                    <input 
+                        type="datetime-local" 
+                        id="postDate"
+                        required>
+                </div>
+
+                <!-- Allow Comments -->
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="allowComments" checked>
+                        <span>Allow comments on this post</span>
+                    </label>
+                </div>
+
+                <!-- Featured Post -->
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="featuredPost">
+                        <span>Mark as featured post</span>
+                    </label>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="previewBtn">Preview</button>
+                    <button type="button" class="btn-secondary" id="saveDraftBtn">Save Draft</button>
+                    <button type="submit" class="btn-primary">Publish Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="post.js"></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteNest - My Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .profile-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .profile-email {
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .my-articles-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .articles-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .article-item {
+            border: 2px solid #e0e0e0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .article-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .article-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-item-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        .article-item-excerpt {
+            color: #666;
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        .article-item-meta {
+            display: flex;
+            gap: 1rem;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-edit {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #F57C00;
+        }
+
+        .btn-delete {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #ee5a52;
+        }
+
+        .btn-view {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #1976D2;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">✍️ WriteNest</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="profile.html">My Profile</a></li>
+                <li><a href="add-post.html">Add New Post</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">👤</div>
+            <h1 class="profile-name" id="profileName">Loading...</h1>
+            <p class="profile-email" id="profileEmail"></p>
+        </div>
+
+        <div class="profile-stats">
+            <div class="stat-box">
+                <div class="stat-number" id="totalPosts">0</div>
+                <div class="stat-label">Total Articles</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="totalViews">0</div>
+                <div class="stat-label">Total Views</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="memberSince">2024</div>
+                <div class="stat-label">Member Since</div>
+            </div>
+        </div>
+
+        <div class="my-articles-section">
+            <div class="section-title">
+                <span>📝 My Articles</span>
+                <a href="add-post.html" style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600;">+ New Article</a>
+            </div>
+            <div class="articles-list" id="articlesList">
+                <div class="loading">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">⏳</div>
+                    <p>Loading your articles...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

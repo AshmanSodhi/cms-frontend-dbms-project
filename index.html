@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WriteNest - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">✍️ WriteNest</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add-post.html">Add New Post</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to WriteNest</h1>
+            <p>Discover the latest articles and insights from our community</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔍 Search articles by title, author, or content..." class="search-input">
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-filter-container">
+            <h3 style="color: white; margin-bottom: 1rem;">Filter by Category:</h3>
+            <div id="categoryFilter" class="category-filter">
+                <button class="category-btn active" onclick="filterByCategory('')">All</button>
+            </div>
+        </div>
+
+        <div class="articles-grid" id="articlesGrid">
+            <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: white;">
+                <div class="loading-spinner"></div>
+                <p style="margin-top: 1rem;">Loading articles...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 WriteNest. All rights reserved. | <a href="#" style="color: white;">Privacy Policy</a> | <a href="#" style="color: white;">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
