@@ -14,6 +14,7 @@ async function fetchArticles() {
         }
 
         allArticles = await response.json();
+        console.log('Fetched articles:', allArticles);
         renderArticles(allArticles);
         await fetchCategories(); // Fetch categories after articles are loaded
     } catch (error) {
@@ -35,17 +36,19 @@ async function fetchCategories() {
         const response = await fetch(`${API_URL}/categories`);
         
         if (!response.ok) {
-            console.log('Categories endpoint not available');
-            // Extract unique categories from articles if API endpoint doesn't exist
+            console.log('Categories endpoint not available, extracting from articles');
             extractCategoriesFromArticles();
             return;
         }
 
         const categories = await response.json();
-        renderCategoryButtons(categories);
+        console.log('Fetched categories:', categories);
+        
+        // Filter out categories with no posts
+        const activeCategories = categories.filter(cat => cat.postCount > 0);
+        renderCategoryButtons(activeCategories);
     } catch (error) {
         console.log('Error fetching categories, extracting from articles:', error);
-        // Fallback: extract categories from articles
         extractCategoriesFromArticles();
     }
 }
@@ -55,18 +58,18 @@ function extractCategoriesFromArticles() {
     const categoriesSet = new Set();
     
     allArticles.forEach(article => {
+        // The API returns 'category' as a string directly
         if (article.category) {
             categoriesSet.add(article.category);
-        } else if (article.categoryName) {
-            categoriesSet.add(article.categoryName);
         }
     });
     
     const categories = Array.from(categoriesSet).map(cat => ({
         name: cat,
-        id: cat.toLowerCase().replace(/\s+/g, '-')
+        categoryId: cat.toLowerCase().replace(/\s+/g, '-')
     }));
     
+    console.log('Extracted categories from articles:', categories);
     renderCategoryButtons(categories);
 }
 
@@ -80,14 +83,17 @@ function renderCategoryButtons(categories) {
     filterContainer.innerHTML = '<button class="category-btn active" onclick="filterByCategory(\'\')">All</button>';
     
     if (categories.length === 0) {
+        console.log('No categories to display');
         return;
     }
     
     categories.forEach(category => {
         const button = document.createElement('button');
         button.className = 'category-btn';
-        button.textContent = category.name || category;
-        button.onclick = () => filterByCategory(category.name || category);
+        // Use 'name' property from API response
+        const categoryName = category.name || category;
+        button.textContent = categoryName;
+        button.onclick = () => filterByCategory(categoryName);
         filterContainer.appendChild(button);
     });
 }
@@ -95,6 +101,7 @@ function renderCategoryButtons(categories) {
 // Filter articles by category
 function filterByCategory(category) {
     currentCategory = category;
+    console.log('Filtering by category:', category);
     
     // Update active button
     const buttons = document.querySelectorAll('.category-btn');
@@ -114,6 +121,7 @@ function filterByCategory(category) {
 // Search function
 function searchArticles(query) {
     currentSearchQuery = query.toLowerCase().trim();
+    console.log('Searching for:', currentSearchQuery);
     applyFilters();
 }
 
@@ -124,9 +132,10 @@ function applyFilters() {
     // Apply category filter
     if (currentCategory) {
         filtered = filtered.filter(article => {
-            const articleCategory = article.category || article.categoryName || '';
-            return articleCategory === currentCategory;
+            // The API returns 'category' as a string directly
+            return article.category === currentCategory;
         });
+        console.log('After category filter:', filtered.length, 'articles');
     }
     
     // Apply search filter
@@ -136,10 +145,11 @@ function applyFilters() {
             const authorMatch = article.author?.toLowerCase().includes(currentSearchQuery);
             const excerptMatch = article.excerpt?.toLowerCase().includes(currentSearchQuery);
             const contentMatch = article.content?.toLowerCase().includes(currentSearchQuery);
-            const categoryMatch = (article.category || article.categoryName || '').toLowerCase().includes(currentSearchQuery);
+            const categoryMatch = article.category?.toLowerCase().includes(currentSearchQuery);
             
             return titleMatch || authorMatch || excerptMatch || contentMatch || categoryMatch;
         });
+        console.log('After search filter:', filtered.length, 'articles');
     }
     
     renderArticles(filtered);
@@ -163,7 +173,8 @@ function renderArticles(articles) {
         const card = document.createElement('div');
         card.className = 'article-card';
         
-        const category = article.category || article.categoryName || '';
+        // Get category - it's already a string in the API response
+        const category = article.category || '';
         
         card.innerHTML = `
             <div class="article-image">${article.icon || '📄'}</div>
@@ -172,8 +183,9 @@ function renderArticles(articles) {
                 ${category ? `<span class="article-category">${escapeHtml(category)}</span>` : ''}
                 <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
                 <div class="article-meta">
-                    <span class="article-author">${escapeHtml(article.author)}</span>
-                    <span>${article.date}</span>
+                    <span class="article-author">👤 ${escapeHtml(article.author)}</span>
+                    <span>📅 ${article.date}</span>
+                    ${article.views ? `<span>👁️ ${article.views} views</span>` : ''}
                 </div>
             </div>
         `;
