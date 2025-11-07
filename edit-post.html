@@ -88,23 +88,29 @@
                 </div>
 
                 <!-- Featured Image URL -->
-                <div class="form-group">
-                    <label for="postImage">Featured Image URL</label>
-                    <input 
-                        type="url" 
-                        id="postImage" 
-                        placeholder="https://example.com/image.jpg">
-                    <small class="field-hint">Enter a valid image URL</small>
-                </div>
+               <!-- Add this field to your post form -->
+<div class="form-group">
+    <label for="imageUrl">Featured Image URL (Optional)</label>
+    <input 
+        type="url" 
+        id="imageUrl" 
+        name="imageUrl" 
+        placeholder="https://example.com/image.jpg"
+        class="form-input"
+    >
+    <small style="color: #666; font-size: 0.875rem;">
+        Enter a direct link to an image (JPG, PNG, GIF, WebP)
+    </small>
+</div>
 
-                <!-- Image Alt Text -->
+                <!-- Image Alt Text
                 <div class="form-group">
                     <label for="postImageAlt">Image Alt Text</label>
                     <input 
                         type="text" 
                         id="postImageAlt" 
                         placeholder="Describe the image for accessibility">
-                </div>
+                </div> -->
 
                 <!-- Publish Date -->
                 <div class="form-group">

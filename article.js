@@ -153,6 +153,14 @@ function renderArticle(article) {
             ` : ''}
         </header>
         
+        ${article.imageUrl ? `
+            <div class="article-featured-image">
+                <img src="${escapeHtml(article.imageUrl)}" alt="${escapeHtml(article.title)}" 
+                     onerror="this.parentElement.style.display='none'"
+                     style="width: 100%; height: auto; max-height: 500px; object-fit: cover; border-radius: 12px; margin-bottom: 2rem;">
+            </div>
+        ` : ''}
+        
         <div class="article-body">
             ${article.content.split('\n').filter(p => p.trim()).map(para => `<p>${escapeHtml(para)}</p>`).join('')}
         </div>

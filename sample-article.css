@@ -21,6 +21,22 @@ nav {
     z-index: 100;
 }
 
+/* Featured Image for Article Detail Page */
+.article-featured-image {
+    margin: 2rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.article-featured-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+}
+
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;

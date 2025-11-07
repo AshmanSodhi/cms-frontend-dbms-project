@@ -177,7 +177,12 @@ function renderArticles(articles) {
         const category = article.category || '';
         
         card.innerHTML = `
-            <div class="article-image">${article.icon || '📄'}</div>
+            ${article.imageUrl 
+                ? `<div class="article-image-wrapper">
+                     <img src="${escapeHtml(article.imageUrl)}" alt="${escapeHtml(article.title)}" class="article-image-img" onerror="this.parentElement.innerHTML='<div class=\\'article-image\\'>${article.icon || '📄'}</div>'">
+                   </div>`
+                : `<div class="article-image">${article.icon || '📄'}</div>`
+            }
             <div class="article-content">
                 <h2 class="article-title">${escapeHtml(article.title)}</h2>
                 ${category ? `<span class="article-category">${escapeHtml(category)}</span>` : ''}
