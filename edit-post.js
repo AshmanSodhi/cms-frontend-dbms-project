@@ -42,7 +42,7 @@ async function checkAuth() {
     } catch (error) {
         console.error('Auth check failed:', error);
         alert('Authentication failed. Please login again.');
-        window.location.href = 'login.html');
+        window.location.href = 'login.html';
         return false;
     }
 }

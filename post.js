@@ -111,8 +111,8 @@ function collectFormData() {
             .filter(tag => tag !== ''),
         excerpt: document.getElementById('postExcerpt').value.trim(),
         content: document.getElementById('postContent').value.trim(),
-        featuredImage: document.getElementById('postImage').value.trim(),
-        imageAlt: document.getElementById('postImageAlt').value.trim(),
+        featuredImage: document.getElementById('imageUrl').value.trim(),
+        //imageAlt: document.getElementById('postImageAlt').value.trim(),
         publishDate: document.getElementById('postDate').value,
         allowComments: document.getElementById('allowComments').checked,
         isFeatured: document.getElementById('featuredPost').checked
@@ -302,8 +302,8 @@ window.addEventListener('load', () => {
             document.getElementById('postTags').value = postData.tags ? postData.tags.join(', ') : '';
             document.getElementById('postExcerpt').value = postData.excerpt || '';
             document.getElementById('postContent').value = postData.content || '';
-            document.getElementById('postImage').value = postData.featuredImage || '';
-            document.getElementById('postImageAlt').value = postData.imageAlt || '';
+            document.getElementById('imageUrl').value = postData.featuredImage || '';
+            //document.getElementById('postImageAlt').value = postData.imageAlt || '';
             document.getElementById('postDate').value = postData.publishDate || '';
             document.getElementById('allowComments').checked = postData.allowComments !== false;
             document.getElementById('featuredPost').checked = postData.isFeatured || false;
