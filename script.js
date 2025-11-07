@@ -8,8 +8,8 @@ async function fetchArticles() {
             throw new Error('Failed to fetch articles');
         }
 
-        const articles = await response.json();
-        renderArticles(articles);
+        allArticles = await response.json(); // Store articles globally
+        renderArticles(allArticles);
     } catch (error) {
         console.error('Error fetching articles:', error);
         const grid = document.getElementById('articlesGrid');
@@ -17,11 +17,46 @@ async function fetchArticles() {
             <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: white;">
                 <h3>Unable to load articles</h3>
                 <p>${error.message}</p>
-                <p style="font-size: 0.9rem; margin-top: 1rem;">Make sure the backend server is running on http://localhost:3000</p>
+                <p style="font-size: 0.9rem; margin-top: 1rem;">Make sure the backend server is running</p>
             </div>
         `;
     }
 }
+
+function searchArticles(query) {
+    const searchTerm = query.toLowerCase().trim();
+    
+    if (!searchTerm) {
+        renderArticles(allArticles);
+        return;
+    }
+    
+    const filtered = allArticles.filter(article => {
+        const titleMatch = article.title?.toLowerCase().includes(searchTerm);
+        const authorMatch = article.author?.toLowerCase().includes(searchTerm);
+        const excerptMatch = article.excerpt?.toLowerCase().includes(searchTerm);
+        const contentMatch = article.content?.toLowerCase().includes(searchTerm);
+        
+        return titleMatch || authorMatch || excerptMatch || contentMatch;
+    });
+    
+    renderArticles(filtered);
+}
+
+// Add event listener in DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    fetchArticles();
+    checkAuth();
+    
+    // Setup search
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            searchArticles(e.target.value);
+        });
+    }
+});
+
 
 function renderArticles(articles) {
     const grid = document.getElementById('articlesGrid');
