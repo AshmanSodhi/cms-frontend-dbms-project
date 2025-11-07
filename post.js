@@ -182,7 +182,7 @@ postForm.addEventListener('submit', async (e) => {
                 content: data.content,
                 category: data.category,
                 tags: data.tags,
-                date: data.publishDate
+                imageUrl: data.featuredImage 
             })
         });
 
