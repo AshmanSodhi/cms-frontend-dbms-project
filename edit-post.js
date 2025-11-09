@@ -95,8 +95,9 @@ function populateForm() {
     document.getElementById('postExcerpt').value = excerpt;
     
     document.getElementById('postContent').value = currentArticle.content || '';
-    document.getElementById('postImage').value = '';
-    document.getElementById('postImageAlt').value = '';
+    
+    // FIXED: Set imageUrl field
+    document.getElementById('imageUrl').value = currentArticle.imageUrl || '';
     
     // Set date - convert to datetime-local format
     if (currentArticle.dateCreated) {
@@ -144,8 +145,7 @@ function collectFormData() {
             .filter(tag => tag !== ''),
         excerpt: document.getElementById('postExcerpt').value.trim(),
         content: document.getElementById('postContent').value.trim(),
-        featuredImage: document.getElementById('postImage').value.trim(),
-        imageAlt: document.getElementById('postImageAlt').value.trim(),
+        imageUrl: document.getElementById('imageUrl').value.trim(), // FIXED: Use imageUrl
         publishDate: document.getElementById('postDate').value,
         allowComments: document.getElementById('allowComments').checked,
         isFeatured: document.getElementById('featuredPost').checked
@@ -163,8 +163,9 @@ function validateForm() {
     if (data.content === '') errors.push('Content is required');
     if (data.publishDate === '') errors.push('Publish date is required');
     
-    if (data.featuredImage && !isValidUrl(data.featuredImage)) {
-        errors.push('Featured image must be a valid URL');
+    // FIXED: Validate imageUrl instead of featuredImage
+    if (data.imageUrl && !isValidUrl(data.imageUrl)) {
+        errors.push('Image URL must be a valid URL');
     }
     
     return errors;
@@ -198,6 +199,7 @@ editPostForm.addEventListener('submit', async (e) => {
     submitBtn.textContent = 'Updating...';
     
     try {
+        // FIXED: Include imageUrl in the request body
         const response = await fetch(`${API_URL}/posts/${articleId}`, {
             method: 'PUT',
             headers: {
@@ -208,7 +210,8 @@ editPostForm.addEventListener('submit', async (e) => {
                 title: data.title,
                 content: data.content,
                 category: data.category,
-                tags: data.tags
+                tags: data.tags,
+                imageUrl: data.imageUrl || null // FIXED: Added imageUrl
             })
         });
 
@@ -272,7 +275,7 @@ previewBtn.addEventListener('click', () => {
             <div class="meta">
                 ${new Date(postData.publishDate).toLocaleDateString()} | ${escapeHtml(postData.category)}
             </div>
-            ${postData.featuredImage ? `<img src="${escapeHtml(postData.featuredImage)}" alt="${escapeHtml(postData.imageAlt || postData.title)}">` : ''}
+            ${postData.imageUrl ? `<img src="${escapeHtml(postData.imageUrl)}" alt="${escapeHtml(postData.title)}">` : ''}
             <div class="excerpt">${escapeHtml(postData.excerpt)}</div>
             <div class="content">${escapeHtml(postData.content)}</div>
             ${postData.tags.length > 0 ? `
